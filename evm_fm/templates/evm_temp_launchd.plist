@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+
+        <key>Label</key>
+        <string>com.andrewdieken.envvarmanager</string>
+
+        <key>ProgramArguments</key>
+        <array>
+            <string>{launchd_python_path}</string>
+            <string>/Users/andrewdieken/dev/confd_fm/env_var_manager_fm/refresh_environment_variables.py</string>
+            <string>--config-file</string>
+            <string>{config_file_loc}</string>
+        </array>
+
+        <key>StandardOutPath</key>
+        <string>{launchd_std_out_log_loc}</string>
+        <key>StandardErrorPath</key>
+        <string>{launchd_std_err_log_loc}</string>
+
+        <key>RunAtLoad</key>
+        <true/>
+
+        <key>StartInterval</key>
+        <integer>{launchd_start_interval}</integer>
+
+    </dict>
+</plist>
+
