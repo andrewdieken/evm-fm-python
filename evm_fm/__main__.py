@@ -25,7 +25,7 @@ def main():
     elif args.unload:
         utils.unload_launch_agent()
 
-    utils.get_launch_agent_status(parsed_config_file)
+    print(utils.get_launch_agent_status(parsed_config_file))
 
 if __name__ == '__main__':
     sys.exit(main())

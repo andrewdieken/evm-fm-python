@@ -123,15 +123,16 @@ def create_launch_agent(configurations):
     formatted_launchd_file = parsed_launchd_template.format(launchd_python_path=configurations.get('launchd_python_path', constants.DEFAULT_PYTHON_PATH),
                                                             refresh_env_var_script_loc=refresh_env_var_script_loc,
                                                             config_file_loc=configurations['config_file_loc'],
-                                                            launchd_std_out_log_loc=configurations('launchd_std_out_log_loc', constants.DEFAULT_STD_OUT_LOG_LOC),
-                                                            launchd_std_err_log_loc=configurations('launchd_std_err_log_loc', constants.DEFAULT_STSD_ERR_LOG_LOC),
-                                                            launchd_start_interval=configurations('launchd_start_interval', constants.DEFAULT_START_INTERVAL),)
+                                                            launchd_std_out_log_loc=configurations.get('launchd_std_out_log_loc', constants.DEFAULT_STD_OUT_LOG_LOC),
+                                                            launchd_std_err_log_loc=configurations.get('launchd_std_err_log_loc', constants.DEFAULT_STSD_ERR_LOG_LOC),
+                                                            launchd_start_interval=configurations.get('launchd_start_interval', constants.DEFAULT_START_INTERVAL),)
 
     # Create LaunchAgent
     launch_agent_file_path = get_launch_agent_file_path()
-    import ipdb; ipdb.set_trace()
     with open(launch_agent_file_path, 'w') as launch_agent_file:
         launch_agent_file.write(formatted_launchd_file)
+
+    print('LaunchAgent created at {}'.format(launch_agent_file_path))
 
 
 def load_launch_agent():
@@ -165,7 +166,7 @@ def get_launch_agent_status(configurations):
     # returns a failure due to the grep command returning a non-zero exit code. This is not the behavior we want. When the
     # grep command returns no matches it means that the LaunchAgent has *not* been loaded and we want to inform the user.
     if p.returncode == 1:
-        status_msg = 'LaunchAgent been successfully unloaded. You can view logs at {std_out_location}'.format(std_out_location=configurations['launchd_std_out_log_loc'])
+        status_msg = 'LaunchAgent is not loaded. You can view logs at {std_out_location}'.format(std_out_location=configurations['launchd_std_out_log_loc'])
     else:
         launch_agent_status = int(output.decode().split('\t')[1])
         if launch_agent_status == 0:
@@ -196,7 +197,7 @@ def get_users_home_directory():
 def get_launch_agent_file_name():
     """Return the name of the LaunchAgent file
     """
-    file_name = 'com.{user_name}.envvarmanager'
+    file_name = 'com.{user_name}.envvarmanager.plist'
     user_name = getpass.getuser()
     return file_name.format(user_name=user_name)
 
@@ -218,6 +219,6 @@ def verify_required_configurations(user_configurations):
     ]
 
     for config in required_configurations:
-        if not user_configurations['config']:
-            error_message = 'Missing required configuration: {}'.format(config)
+        if not user_configurations.get(config, None):
+            error_message = 'Required configuration missing: {}'.format(config)
             raise Exception(error_message)
