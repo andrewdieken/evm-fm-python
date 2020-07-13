@@ -4,6 +4,8 @@ import os
 import re
 import subprocess
 
+import constants
+
 
 def update_environment_variable_file(s3_environment_variable_mappings, file_path):
     """Util method to either update to set local environment variables for a given env file
@@ -56,7 +58,7 @@ def get_existing_value(key_value_regex_string, string_to_search):
     """Helper method to get the value of an existing environment variable
 
     Inputs:
-        - key_value_regex_string (String): A regex string consiting of the existing key to search for
+        - key_value_regex_string (String): A regex string consisting of the existing key to search for
         - string_to_search (String): String used to search for the key_value_regex_string in
 
     Returns:
@@ -118,12 +120,12 @@ def create_launch_agent(configurations):
 
     # Format launchd template with user configurations
     refresh_env_var_script_loc = os.path.join(current_directory, 'refresh_environment_variables.py')
-    formatted_launchd_file = parsed_launchd_template.format(launchd_python_path=configurations['launchd_python_path'],
+    formatted_launchd_file = parsed_launchd_template.format(launchd_python_path=configurations.get('launchd_python_path', constants.DEFAULT_PYTHON_PATH),
                                                             refresh_env_var_script_loc=refresh_env_var_script_loc,
                                                             config_file_loc=configurations['config_file_loc'],
-                                                            launchd_std_out_log_loc=configurations['launchd_std_out_log_loc'],
-                                                            launchd_std_err_log_loc=configurations['launchd_std_err_log_loc'],
-                                                            launchd_start_interval=configurations['launchd_start_interval'],)
+                                                            launchd_std_out_log_loc=configurations('launchd_std_out_log_loc', constants.DEFAULT_STD_OUT_LOG_LOC),
+                                                            launchd_std_err_log_loc=configurations('launchd_std_err_log_loc', constants.DEFAULT_STSD_ERR_LOG_LOC),
+                                                            launchd_start_interval=configurations('launchd_start_interval', constants.DEFAULT_START_INTERVAL),)
 
     # Create LaunchAgent
     launch_agent_file_path = get_launch_agent_file_path()
@@ -167,7 +169,7 @@ def get_launch_agent_status(configurations):
     else:
         launch_agent_status = int(output.decode().split('\t')[1])
         if launch_agent_status == 0:
-            status_msg = 'LaunchAgent sucessfully loaded. You can view logs at {std_out_location}'.format(std_out_location=configurations['launchd_std_out_log_loc'])
+            status_msg = 'LaunchAgent successfully loaded. You can view logs at {std_out_location}'.format(std_out_location=configurations['launchd_std_out_log_loc'])
         else:
             status_msg = 'LaunchAgent failed to load. Check logs at {std_err_location}'.format(std_err_location=configurations['launchd_std_err_log_loc'])
 
@@ -203,3 +205,19 @@ def get_current_working_directory():
     """Return the current working directory
     """
     return os.path.abspath(os.path.dirname(__file__))
+
+
+def verify_required_configurations(user_configurations):
+    """Helper method to verify the user has all the required configurations
+
+    Inputs:
+        - user_configurations (Dict): Users configurations
+    """
+    required_configurations = [
+        'env_file_path', 'param_store_prefix', 'config_file_loc',
+    ]
+
+    for config in required_configurations:
+        if not user_configurations['config']:
+            error_message = 'Missing required configuration: {}'.format(config)
+            raise Exception(error_message)
