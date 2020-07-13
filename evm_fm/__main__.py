@@ -15,6 +15,8 @@ def main():
     with open(str(config_file_loc), 'r') as config_file:
         parsed_config_file = toml.loads(config_file.read())
 
+    utils.verify_required_configurations(parsed_config_file)
+
     # Create LaunchAgent
     utils.create_launch_agent(parsed_config_file)
 
