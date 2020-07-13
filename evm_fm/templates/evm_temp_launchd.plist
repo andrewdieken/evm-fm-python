@@ -9,7 +9,7 @@
         <key>ProgramArguments</key>
         <array>
             <string>{launchd_python_path}</string>
-            <string>/Users/andrewdieken/dev/confd_fm/env_var_manager_fm/refresh_environment_variables.py</string>
+            <string>{refresh_env_var_script_loc}</string>
             <string>--config-file</string>
             <string>{config_file_loc}</string>
         </array>
