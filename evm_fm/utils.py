@@ -26,7 +26,6 @@ def update_environment_variable_file(s3_environment_variable_mappings, file_path
     file_updated = False
     for s3_key, s3_value in s3_environment_variable_mappings.items():
         formatted_replace_string = REPLACE_STRING.format(s3_key, s3_value)
-        import ipdb; ipdb.set_trace()
 
         # Check to see if the s3 param already exists in the env var file
         is_existing_env_var = re.search(str(s3_key), file_string)
