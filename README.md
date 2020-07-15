@@ -36,7 +36,7 @@ This action unloads and stops the LaunchAgent
 | -u, --unload | | False | Whether the evm LaunchAgent should be unloaded |
 
 ### Configuration File
-This file contains all necessary configurations for `evm-fm-python` to perform all available actions. The configuration file can be located anywhere that can be accessed by the `evm-fm-python` project.
+This file contains all necessary configurations for `evm-fm-python` to perform the available actions. The configuration file can be located anywhere that can be accessed by the `evm-fm-python` project.
 
 *__NOTE__: The configuration file *needs* to be a `.toml` file. See [https://github.com/toml-lang/toml](https://github.com/toml-lang/toml) for additional information about this file type*
 
