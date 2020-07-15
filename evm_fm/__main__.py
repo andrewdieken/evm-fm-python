@@ -18,8 +18,9 @@ def main():
 
     utils.verify_required_configurations(parsed_config_file)
 
-    # Create LaunchAgent
-    utils.create_launch_agent(parsed_config_file)
+    # Only create LaunchAgent if unload arg is *not* passed
+    if not args.unload:
+        utils.create_launch_agent(parsed_config_file)
 
     if args.load:
         utils.load_launch_agent()
