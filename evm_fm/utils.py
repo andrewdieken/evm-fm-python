@@ -15,6 +15,9 @@ def update_environment_variable_file(s3_environment_variable_mappings, file_path
     Inputs:
         - s3_environment_variable_mappings (Dict): Mappings of environment variable names to values
         - file_path (String): Environment variable file path
+
+    Returns:
+        - Boolean: Whether or not the environment variable file was updated
     """
     REGEX_SEARCH_STRING = r'{}=.*\n'
     REPLACE_STRING = '{}="{}"\n'
@@ -74,13 +77,14 @@ def get_existing_value(key_value_regex_string, string_to_search):
     return existing_value
 
 
-
-
 def parse_args(cli_args):
     """Parse CLI args
 
     Inputs:
         - cli_args (List): List of command line arguments
+
+    Returns:
+        - ArgumentParser instance with namespaced arguments
     """
     parser = argparse.ArgumentParser(description='Parse CLI arguments.')
     parser.add_argument(
@@ -156,6 +160,9 @@ def get_launch_agent_status(configurations):
 
     Inputs:
         - configurations (Dict): User configurations used to format LaunchAgent file
+
+    Returns:
+        - String: Status of the LaunchAgent
     """
     launch_agent_file_name = get_launch_agent_file_name()
     # launch_agent_data = subprocess.check_output('launchctl list | grep {launch_agent_file_name}'.format(launch_agent_file_name=launch_agent_file_name), shell=True, stderr=subprocess.STDOUT).decode()
@@ -179,6 +186,9 @@ def get_launch_agent_status(configurations):
 
 def get_launch_agent_file_path():
     """Helper method to get the LaunchAgent file path
+
+    Returns:
+        - String: File path to the LaunchAgent
     """
     home_dir = get_users_home_directory()
     launch_agents_dir = 'Library/LaunchAgents'
@@ -190,20 +200,30 @@ def get_launch_agent_file_path():
 
 def get_users_home_directory():
     """Return the users home directory path
+
+    Return:
+        - String: File path to the users home directory
     """
     return os.path.expanduser('~')
 
 
 def get_launch_agent_file_name():
     """Return the name of the LaunchAgent file
+
+    Return:
+        - String: Name of the LaunchAgent
     """
     file_name = 'com.{user_name}.envvarmanager.plist'
     user_name = getpass.getuser()
+
     return file_name.format(user_name=user_name)
 
 
 def get_current_working_directory():
     """Return the current working directory
+
+    Return:
+        - String: File path of the current working directory
     """
     return os.path.abspath(os.path.dirname(__file__))
 
@@ -213,6 +233,9 @@ def verify_required_configurations(user_configurations):
 
     Inputs:
         - user_configurations (Dict): Users configurations
+
+    Raises:
+        - Exception: Which required configuration(s) is missing
     """
     required_configurations = [
         'env_file_path', 'param_store_prefix', 'config_file_loc',
