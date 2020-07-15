@@ -11,6 +11,8 @@ from utils import parse_args, update_environment_variable_file
 sys.tracebacklimit=0
 
 def main():
+    """Main method
+    """
     args = parse_args(sys.argv[1:])
 
     # Parse config file

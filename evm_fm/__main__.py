@@ -7,7 +7,8 @@ import utils
 
 
 def main():
-    """Main method"""
+    """Main method
+    """
     args = utils.parse_args(sys.argv[1:])
 
     # Parse config file
