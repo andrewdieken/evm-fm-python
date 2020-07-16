@@ -3,7 +3,6 @@ import subprocess
 import sys
 
 import toml
-from botocore.exceptions import NoCredentialsError
 from ssm_parameter_store import EC2ParameterStore
 
 from utils import parse_args, update_environment_variable_file
@@ -40,7 +39,6 @@ def main():
             # reading.
             if not use_shell:
                 command = shlex.split(command)
-
             try:
                 completed_command = subprocess.run(command, shell=use_shell, check=True)
                 print("Command '{}' completed successfully with exit code {}".format(command, completed_command.returncode))
