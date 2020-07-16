@@ -165,17 +165,15 @@ def get_launch_agent_status(configurations):
         - String: Status of the LaunchAgent
     """
     launch_agent_file_name = get_launch_agent_file_name()
-    # launch_agent_data = subprocess.check_output('launchctl list | grep {launch_agent_file_name}'.format(launch_agent_file_name=launch_agent_file_name), shell=True, stderr=subprocess.STDOUT).decode()
-    p = subprocess.Popen('launchctl list | grep {launch_agent_file_name}'.format(launch_agent_file_name=launch_agent_file_name), shell=True, stdout=subprocess.PIPE)
-    output, _ = p.communicate()
+    output = subprocess.run('launchctl list | grep {launch_agent_file_name}'.format(launch_agent_file_name=launch_agent_file_name.strip('.plist')), shell=True, capture_output=True)
 
     # Grep considers no matches to be a failure and returns a status code of 1. When this happens the subprocess library
     # returns a failure due to the grep command returning a non-zero exit code. This is not the behavior we want. When the
     # grep command returns no matches it means that the LaunchAgent has *not* been loaded and we want to inform the user.
-    if p.returncode == 1:
+    if output.returncode == 1:
         status_msg = 'LaunchAgent is not loaded. You can view logs at {std_out_location}'.format(std_out_location=configurations['launchd_std_out_log_loc'])
     else:
-        launch_agent_status = int(output.decode().split('\t')[1])
+        launch_agent_status = int(output.stdout.decode().split('\t')[1])
         if launch_agent_status == 0:
             status_msg = 'LaunchAgent successfully loaded. You can view logs at {std_out_location}'.format(std_out_location=configurations['launchd_std_out_log_loc'])
         else:
