@@ -1,6 +1,7 @@
 import shlex
 import subprocess
 import sys
+from datetime import datetime
 
 import toml
 from ssm_parameter_store import EC2ParameterStore
@@ -41,9 +42,9 @@ def main():
                 command = shlex.split(command)
             try:
                 completed_command = subprocess.run(command, shell=use_shell, check=True)
-                print("Command '{}' completed successfully with exit code {}".format(command, completed_command.returncode))
+                print("{} - Command '{}' completed successfully with exit code {}".format(datetime.now(), command, completed_command.returncode))
             except subprocess.CalledProcessError as e:
-                error_message = "ERROR: {}".format(str(e))
+                error_message = "{} - ERROR: {}".format(datetime.now(), str(e))
                 raise Exception(error_message)
 
 
