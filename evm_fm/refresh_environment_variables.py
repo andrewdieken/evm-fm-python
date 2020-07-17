@@ -6,7 +6,7 @@ from datetime import datetime
 import toml
 from ssm_parameter_store import EC2ParameterStore
 
-from utils import parse_args, update_environment_variable_file
+from evm_fm.utils import parse_args, update_environment_variable_file
 
 sys.tracebacklimit=0
 

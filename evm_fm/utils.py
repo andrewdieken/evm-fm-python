@@ -4,7 +4,7 @@ import os
 import re
 import subprocess
 
-import constants
+import evm_fm.constants
 
 
 def update_environment_variable_file(s3_environment_variable_mappings, file_path):
