@@ -40,16 +40,18 @@ This file contains all necessary configurations for `evm-fm-python` to perform t
 
 *__NOTE__: The configuration file *needs* to be a `.toml` file. See [https://github.com/toml-lang/toml](https://github.com/toml-lang/toml) for additional information about this file type*
 
-| Key | Value Type | Required |  Default | Description |
-| ---- | ---- | ---- | ---- | ---- |
-| env_file_path | String | True | | File path of the environment variable file you wish `evm-fm-python` to update |
-| param_store_prefix | String | True | | Prefix you want `evm-fm-python` to use when pulling secret/key values from the supported secret/key management systems |
-| config_file_loc | String | True | | Path of the configuration file |
-| launchd_std_out_log_loc | String | False | /usr/local/bin/log/env_var_manager.log | Path of the stdout log file you want the LaunchAgent to write to |
-| launchd_python_path | String | False | /usr/bin/python | Path of the Python executable you want the LaunchAgent to use |
-| launchd_std_err_log_loc | String | False | /usr/local/bin/log/env_var_manager.log | Path of the stderr log file you want the LaunchAgent to write to |
-| launchd_start_interval | Integer | False | 120 | Time interval you want the LaunchAgent to run on in Seconds |
-| post_commands | List of Dictionaries | False | | List of commands you want to be executed after the local environment file has been updated |
+| Key | Value Type | Required |  Default | Children | Parent | Description |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| env_file_path | String | True | - | - | - | File path of the environment variable file you wish `evm-fm-python` to update |
+| param_store_prefix | String | True | - | - | - | Prefix you want `evm-fm-python` to use when pulling secret/key values from the supported secret/key management systems |
+| config_file_loc | String | True | - | - | - | Path of the configuration file |
+| launchd_std_out_log_loc | String | False | /usr/local/bin/log/env_var_manager.log | - | - | Path of the stdout log file you want the LaunchAgent to write to |
+| launchd_python_path | String | False | /usr/bin/python | - | - | Path of the Python executable you want the LaunchAgent to use |
+| launchd_std_err_log_loc | String | False | /usr/local/bin/log/env_var_manager.log | - | - | Path of the stderr log file you want the LaunchAgent to write to |
+| launchd_start_interval | Integer | False | 120 | - | - | Time interval you want the LaunchAgent to run on in Seconds |
+| post_commands | List of Dictionaries | False | - | command, shell | - | List of commands you want to be executed after the local environment file has been updated |
+| command | String | True | - | - | post_commands | The post command you wish to be executed |
+| shell | String | True | - | - | post_commands | Whether you wish the post command to be executed in a shell environment |
 
 #### Example Configuration File
 ```
