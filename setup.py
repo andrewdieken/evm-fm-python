@@ -14,7 +14,6 @@ setup(
     author = 'Andrew Dieken',
     author_email = 'andrewrd@live.com',
     url = 'https://github.com/andrewdieken/evm-fm-python',
-    download_url = 'https://github.com/andrewdieken/evm-fm-python/archive/v0.01.1.tar.gz',
     keywords = ['aws', 'environment', 'variable', 'manager', 'mac'],
     install_requires=[
         'toml>=0.10.1',
