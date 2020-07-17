@@ -3,3 +3,6 @@
 # Distribution / packaging
 dist/
 MANIFEST
+dist/
+*.egg
+*.egg-info/
