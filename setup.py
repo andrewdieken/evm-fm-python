@@ -1,12 +1,17 @@
 from distutils.core import setup
 
+with open('README.md') as f:
+    readme = f.read()
+
 setup(
     name = 'evm-fm-python',
     packages = ['evm_fm'],
-    version = '0.1',
+    version = '0.01.0',
     license='MIT',
     description = 'Environment variable manager for Mac',
-    author = 'YOUR NAME',
+    long_description = readme,
+    long_description_content_type = "text/markdown",
+    author = 'Andrew Dieken',
     author_email = 'andrewrd@live.com',
     url = 'https://github.com/andrewdieken/evm-fm-python',
     download_url = 'https://github.com/andrewdieken/evm-fm-python/archive/v0.01.0.tar.gz',

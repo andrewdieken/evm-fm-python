@@ -1,1 +1,5 @@
 *.pyc
+
+# Distribution / packaging
+dist/
+MANIFEST
