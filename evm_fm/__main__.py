@@ -3,7 +3,7 @@ import sys
 
 import toml
 
-import evm_fm.utils
+from evm_fm import utils
 
 
 def main():
