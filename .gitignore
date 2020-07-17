@@ -4,5 +4,6 @@
 dist/
 MANIFEST
 dist/
+build/
 *.egg
 *.egg-info/
