@@ -6,7 +6,7 @@ with open('README.md') as f:
 setup(
     name = 'evm-fm-python',
     packages = ['evm_fm'],
-    version = '0.01.0',
+    version = '0.01.1',
     license='MIT',
     description = 'Environment variable manager for Mac',
     long_description = readme,
@@ -14,7 +14,7 @@ setup(
     author = 'Andrew Dieken',
     author_email = 'andrewrd@live.com',
     url = 'https://github.com/andrewdieken/evm-fm-python',
-    download_url = 'https://github.com/andrewdieken/evm-fm-python/archive/v0.01.0.tar.gz',
+    download_url = 'https://github.com/andrewdieken/evm-fm-python/archive/v0.01.1.tar.gz',
     keywords = ['aws', 'environment', 'variable', 'manager', 'mac'],
     install_requires=[
         'toml>=0.10.1',
