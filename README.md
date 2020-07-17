@@ -2,6 +2,8 @@
 # evm-fm-python
 Environment variable manager for Mac, written in Python
 
+*__NOTE__: This project is still in the alpha phase of development*
+
 ## Objectives
 This project is a configuration management tool for Mac aimed at keeping a local environment variable file up-to-date with values stored in external secret/key management systems.
 
