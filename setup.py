@@ -5,8 +5,7 @@ with open('README.md') as f:
 
 setup(
     name = 'evm-fm-python',
-    packages = ['evm_fm'],
-    version = '0.01.2',
+    version = '0.01.3',
     license='MIT',
     description = 'Environment variable manager for Mac',
     long_description = readme,
@@ -15,6 +14,10 @@ setup(
     author_email = 'andrewrd@live.com',
     url = 'https://github.com/andrewdieken/evm-fm-python',
     keywords = ['aws', 'environment', 'variable', 'manager', 'mac'],
+    packages = ['evm_fm'],
+    package_data = {'evm_fm': [
+        'templates/*.plist'
+    ]},
     install_requires=[
         'toml>=0.10.1',
         'ssm-parameter-store==19.11.0',
