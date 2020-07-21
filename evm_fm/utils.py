@@ -101,10 +101,9 @@ def parse_args(cli_args):
         description='Parse CLI arguments.',
         usage=usage
     )
-
-    # Required arguments
     required = parser.add_argument_group('Required')
 
+    # Required arguments
     required.add_argument(
         '-f', '--config-file', dest='config_file', help='Location of configuration file'
     )
