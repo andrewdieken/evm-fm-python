@@ -10,7 +10,7 @@ def main():
     """Main method
     """
     if not utils.check_os():
-        print('ERROR: evm_fm can only be run on the Mac OS.')
+        print('ERROR: evm_fm can only be run on Mac OS.')
         sys.exit(1)
 
     args = utils.parse_args(sys.argv[1:])
