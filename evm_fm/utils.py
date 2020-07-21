@@ -1,8 +1,10 @@
 import argparse
 import getpass
 import os
+import platform
 import re
 import subprocess
+import sys
 
 from evm_fm import constants
 
@@ -86,10 +88,28 @@ def parse_args(cli_args):
     Returns:
         - ArgumentParser instance with namespaced arguments
     """
-    parser = argparse.ArgumentParser(description='Parse CLI arguments.')
-    parser.add_argument(
-        '-f', '--config-file', dest='config_file', help='Location of configuration file', required=True
+    REQUIRED_ARGUMENTS = [
+        'config_file',
+    ]
+
+    usage = (
+        '\nCreate: evm-fm --config-file [CONFIG_FILE_PATH]\n'
+        'Load: evm-fm --config-file [CONFIG_FILE_PATH] --load\n'
+        'Unload: evm-fm --config-file [CONFIG_FILE_PATH] --unload'
     )
+    parser = argparse.ArgumentParser(
+        description='Parse CLI arguments.',
+        usage=usage
+    )
+
+    # Required arguments
+    required = parser.add_argument_group('Required')
+
+    required.add_argument(
+        '-f', '--config-file', dest='config_file', help='Location of configuration file'
+    )
+
+    # Optional arguments
     parser.add_argument(
         '-l', '--load', dest='load', action='store_true', help='Whether the evm LaunchAgent should be loaded'
     )
@@ -98,6 +118,11 @@ def parse_args(cli_args):
     )
 
     parsed_args = parser.parse_args(cli_args)
+
+    # Validate arguments
+    if (len(cli_args) == 0) or (not getattr(parsed_args, req_arg) for req_arg in REQUIRED_ARGUMENTS):
+        parser.print_help()
+        sys.exit(1)
 
     return parsed_args
 
@@ -243,3 +268,9 @@ def verify_required_configurations(user_configurations):
         if not user_configurations.get(config, None):
             error_message = 'Required configuration missing: {}'.format(config)
             raise Exception(error_message)
+
+
+def check_os():
+    """Helper method to verify the users OS is a Mac
+    """
+    return platform.system() == 'Darwin'
