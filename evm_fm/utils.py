@@ -119,9 +119,14 @@ def parse_args(cli_args):
     parsed_args = parser.parse_args(cli_args)
 
     # Validate arguments
-    if (len(cli_args) == 0) or (not getattr(parsed_args, req_arg) for req_arg in REQUIRED_ARGUMENTS):
+    if len(cli_args) == 0:
         parser.print_help()
         sys.exit(1)
+
+    for req_arg in REQUIRED_ARGUMENTS:
+        if not getattr(parsed_args, req_arg):
+            parser.print_help()
+            sys.exit(1)
 
     return parsed_args
 
