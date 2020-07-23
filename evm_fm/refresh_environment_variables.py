@@ -22,7 +22,10 @@ def main():
 
     # Fetch AWS params
     ssm_store = EC2ParameterStore()
-    param_store_parameters = ssm_store.get_parameters_by_path(path=parsed_config_file['param_store_prefix'])
+    param_store_parameters = {}
+    prefixes = parsed_config_file['param_store_prefixes']
+    for prefix in prefixes:
+        param_store_parameters.update(ssm_store.get_parameters_by_path(path=prefix))
 
     # Update env var file
     file_updated = update_environment_variable_file(s3_environment_variable_mappings=param_store_parameters, file_path=parsed_config_file['env_file_path'])
@@ -46,6 +49,8 @@ def main():
             except subprocess.CalledProcessError as e:
                 error_message = "{} - ERROR: {}".format(datetime.now(), str(e))
                 raise Exception(error_message)
+    else:
+        print("{} - {} file is currently up to date".format(datetime.now(), parsed_config_file['env_file_path']))
 
 
 if __name__ == '__main__':

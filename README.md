@@ -45,7 +45,7 @@ This file contains all necessary configurations for `evm-fm-python` to perform t
 | Key | Value Type | Required |  Default | Children | Parent | Description |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | env_file_path | String | True | - | - | - | File path of the environment variable file you wish `evm-fm-python` to update |
-| param_store_prefix | String | True | - | - | - | Prefix you want `evm-fm-python` to use when pulling secret/key values from the supported secret/key management systems |
+| param_store_prefixes | List of Strings | True | - | - | - | Prefixes you want `evm-fm-python` to use when pulling secret/key values from the supported secret/key management systems |
 | config_file_loc | String | True | - | - | - | Path of the configuration file |
 | launchd_std_out_log_loc | String | False | /usr/local/bin/log/env_var_manager.log | - | - | Path of the stdout log file you want the LaunchAgent to write to |
 | launchd_python_path | String | False | /usr/bin/python | - | - | Path of the Python executable you want the LaunchAgent to use |
@@ -58,7 +58,7 @@ This file contains all necessary configurations for `evm-fm-python` to perform t
 #### Example Configuration File
 ```
 env_file_path = "/Users/user/example/envs/.env"
-param_store_prefix = "/Development/Test/"
+param_store_prefixes = ["/Development/Test/", "/Production/Test/"]
 launchd_python_path = "/Users/user/.virtualenvs/example/bin/python"
 config_file_loc = '/Users/user/example/configuration_file.toml'
 launchd_std_out_log_loc = "/Users/user/example/logs/env_var_manager.log"
