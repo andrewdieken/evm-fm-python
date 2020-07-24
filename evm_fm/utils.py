@@ -265,7 +265,7 @@ def verify_required_configurations(user_configurations):
         - Exception: Which required configuration(s) is missing
     """
     required_configurations = [
-        'env_file_path', 'param_store_prefix', 'config_file_loc',
+        'env_file_path', 'param_store_prefixes', 'config_file_loc',
     ]
 
     for config in required_configurations:
