@@ -153,7 +153,8 @@ def create_launch_agent(configurations):
 
     # Format launchd template with user configurations
     refresh_env_var_script_loc = os.path.join(current_directory, 'refresh_environment_variables.py')
-    formatted_launchd_file = parsed_launchd_template.format(launchd_python_path=configurations.get('launchd_python_path', constants.DEFAULT_PYTHON_PATH),
+    formatted_launchd_file = parsed_launchd_template.format(launch_agent_name=get_launch_agent_file_name().strip('.plist'),
+                                                            launchd_python_path=configurations.get('launchd_python_path', constants.DEFAULT_PYTHON_PATH),
                                                             refresh_env_var_script_loc=refresh_env_var_script_loc,
                                                             config_file_loc=configurations['config_file_loc'],
                                                             launchd_std_out_log_loc=configurations.get('launchd_std_out_log_loc', constants.DEFAULT_STD_OUT_LOG_LOC),
