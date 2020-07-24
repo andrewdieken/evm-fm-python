@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name = 'evm-fm-python',
-    version = '0.01.5',
+    version = '0.01.6',
     license='MIT',
     description = 'Environment variable manager for Mac',
     long_description = readme,
